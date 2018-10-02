@@ -257,6 +257,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114255846849274558, guid: 93e2d8da038a6ed44b425adc3265f262,
+        type: 2}
+      propertyPath: levelStartDelay
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 93e2d8da038a6ed44b425adc3265f262, type: 2}
   m_IsPrefabParent: 0
