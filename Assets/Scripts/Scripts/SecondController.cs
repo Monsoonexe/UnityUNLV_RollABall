@@ -12,7 +12,7 @@ public class SecondController : MonoBehaviour {
 	public Text scoreText;
 	public bool isGrounded = true;
 	
-	public PlayerController player1;
+	public PlayerController_Ralph player1;
 	public int totalScore;
 	public Vector3 jump;
     public float jumpForce = 4.0f;

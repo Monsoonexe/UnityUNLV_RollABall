@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController_WithScoreUpdate : MonoBehaviour {
 
     private Rigidbody rb;
     private int scoreCount;

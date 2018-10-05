@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HazardReset : MonoBehaviour {
 
-	public PlayerController p1;
+	public PlayerController_Ralph p1;
 	public SecondController p2;
 
 	// Use this for initialization
