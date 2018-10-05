@@ -1,56 +1,101 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    private Rigidbody rigidBody;
-    private Collider col;
-    public Text scoreText;
-    public int speed;
+    private Rigidbody rb;
+    private int scoreCount;
+    public float speed;
+    public float jumpHeight;
+    public float pubBoost;
+    private float dash;
+    private bool canJump;
+    private bool canDash;
 
-    public int totalScore = 0;
-    public int pointValue = 5;
-
-    private void Start()
+    public Text countText;
+    public Text WinText;
+    
+	// Use this for initialization
+    void Start()
     {
-        rigidBody = gameObject.GetComponent<Rigidbody>();
-        col = gameObject.GetComponent<Collider>();
-        
+        rb = GetComponent<Rigidbody>();
+        scoreCount = 0;
+        SetCountText();
+        WinText.text = "";
+        canJump = true;
+        canDash = true;
     }
-
     // Update is called once per frame
-    void Update () {
-        scoreText.text = "Score: " + totalScore.ToString();
-		
-	}
-
-    //called before physics step
-    private void FixedUpdate()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
-        rigidBody.AddForce(movement * speed);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Pickup"))
-        {
-            totalScore += pointValue;
-            Destroy(collision.gameObject);
-        }
-
-        else if(collision.gameObject.CompareTag("PickupMoving"))
-        {
-            totalScore += pointValue * 2;
-            Destroy(collision.gameObject);
+    void FixedUpdate () {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        //Jump
+        float jump;
+        if (Input.GetKeyDown(KeyCode.Space) & canJump == true){
+            jump = jumpHeight;
+            canJump = false;
         }
         else
         {
-            return;
+            jump = 0f;
         }
+        //end jump
+        //dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) & canDash == true)
+        {
+            StartCoroutine(wait());
+            dash = pubBoost;
+            canDash = false;
+        }
+        else
+        {
+            dash = 1;
+        }
+        //end dash
+        Vector3 movement = new Vector3(horizontal*dash, jump, vertical*dash);
+        rb.AddForce(movement * speed);
+
+        
+	}
+    void OnTriggerEnter(Collider hitObject)
+    {
+        //checking for map hits to reset jump
+        if (hitObject.gameObject.CompareTag("Map"))
+        {
+            canJump = true;
+        }
+        if (hitObject.gameObject.CompareTag("Pick Up"))
+        {
+            hitObject.gameObject.SetActive(false);
+            scoreCount = scoreCount + 1;
+            SetCountText();
+        }
+        if (hitObject.gameObject.CompareTag("Death Zone"))
+        {
+            gameObject.SetActive(false);
+            scoreCount = 9;
+            SetCountText();
+        }
+    }
+    void SetCountText()
+    {
+        countText.text = "Count: " + scoreCount.ToString();
+
+        if (scoreCount == 8)
+        {
+            WinText.text = "Congradulations! You Win!";
+        }else if (scoreCount == 9)
+        {
+            WinText.text = "Game Over!";
+        }
+
+    }
+    //Dash delay
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(3);
+        canDash = true;
     }
 }
