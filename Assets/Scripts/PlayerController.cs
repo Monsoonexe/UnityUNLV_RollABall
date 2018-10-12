@@ -7,22 +7,22 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody rigidBody;
     private Collider col;
-    public Text scoreText;
     public int speed;
+    public int pickupPointValue = 5;
+    public GameManager gameManager;
 
-    public int totalScore = 0;
-    public int pointValue = 5;
+   
 
     private void Start()
     {
+        if(gameManager == null) gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         rigidBody = gameObject.GetComponent<Rigidbody>();
         col = gameObject.GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update () {
-        scoreText.text = "Score: " + totalScore.ToString();
-		
+       
 	}
 
     //called before physics step
@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Pickup"))
         {
-            totalScore += pointValue;
+
+            gameManager.AddPoints(pickupPointValue);
             Destroy(collision.gameObject);
         }
         else

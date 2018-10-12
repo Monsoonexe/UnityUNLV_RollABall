@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Pickup
   - Enemy
+  - Map
+  - Death Zone
+  - GameManager
   layers:
   - Default
   - TransparentFX
