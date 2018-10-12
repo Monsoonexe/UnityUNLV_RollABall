@@ -10,6 +10,9 @@ TagManager:
   - Death Zone
   - GameManager
   - Buddy
+  - LevelTimer
+  - ScoreManager
+  - WinText
   layers:
   - Default
   - TransparentFX

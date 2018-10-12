@@ -19,10 +19,23 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         if(playerController == null)
         {
+            Debug.Log("PlayerController reference not set. Searching scene....");//
             playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
+        if(scoreText == null)
+        {
+            Debug.Log("ScoreText reference not set. Searching scene....");//
+            scoreText = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Text>();
+        }
+        if(winText == null)
+        {
+            Debug.Log("WinText reference not set. Searching scene....");//
+            winText = GameObject.FindGameObjectWithTag("WinText").GetComponent<Text>();
+        }
+
         pickUpList = GameObject.FindGameObjectsWithTag("Pickup");
         winText.text = "";
         playerController.acceptPlayerInput = true;

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114255846849274558}
   m_Layer: 5
   m_Name: LevelTimerText
-  m_TagString: Untagged
+  m_TagString: LevelTimer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
