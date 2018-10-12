@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public string winString = "Congradulations!";
     public string loseString = "You lost! Try again!";
 
+    public int secondsDelayUntilNextLevelLoads = 3;
+
     // Use this for initialization
     void Start () {
         if(playerController == null)
@@ -33,12 +35,7 @@ public class GameManager : MonoBehaviour {
 
         if (CheckWinCondition())
         {
-            winText.text = winString;
-            playerController.acceptPlayerInput = false;
-            StartCoroutine(LoadNextLevel());
-            //TODO 
-            //stop taking player controller input
-            //
+            PlayerVictory();
         }
         
     }
@@ -53,6 +50,13 @@ public class GameManager : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    private void PlayerVictory()
+    {
+        winText.text = winString;
+        playerController.acceptPlayerInput = false;
+        StartCoroutine(LoadNextLevel());
     }
 
     public void AddPoints(int pointsToAdd)
@@ -78,7 +82,7 @@ public class GameManager : MonoBehaviour {
     private IEnumerator LoadNextLevel()
     {
         Debug.Log("The scene should be reloading now....");//print test
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(secondsDelayUntilNextLevelLoads);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);//reload this scene
     }
 

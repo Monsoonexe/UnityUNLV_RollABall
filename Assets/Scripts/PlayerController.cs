@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour {
     public bool acceptPlayerInput = true;
 
     public int pickupPointValue = 5;
-    public float speed;
-    public float jumpHeight;
-    public float pubBoost;
+    public float speed = 5;
+    public float jumpHeight = 15;
+    public float pubBoost = 100;
 
     private Rigidbody rb;
     private float dash;
