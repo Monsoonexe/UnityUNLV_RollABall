@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public Text scoreText;
     public Text winText;
     public string winString = "Congradulations!";
+    public string loseString = "You lost! Try again!";
 
     // Use this for initialization
     void Start () {
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour {
         }
         pickUpList = GameObject.FindGameObjectsWithTag("Pickup");
         winText.text = "";
+        playerController.acceptPlayerInput = true;
+        
 	}
 	
 	// Update is called once per frame
@@ -30,6 +34,8 @@ public class GameManager : MonoBehaviour {
         if (CheckWinCondition())
         {
             winText.text = winString;
+            playerController.acceptPlayerInput = false;
+            StartCoroutine(LoadNextLevel());
             //TODO 
             //stop taking player controller input
             //
@@ -57,12 +63,24 @@ public class GameManager : MonoBehaviour {
 
     public void OnPlayerDeath()
     {
+        //Debug.Log("The scene should be reloading now....");//print test
         //TODO tell GM how death occured or fail event
-
+        winText.text = loseString;
+        playerController.acceptPlayerInput = false;
+        StartCoroutine(LoadNextLevel());
     }
 
     public void UpdateScoreText()
     {
         scoreText.text = "Score: " + scoreCount.ToString();
     }
+
+    private IEnumerator LoadNextLevel()
+    {
+        Debug.Log("The scene should be reloading now....");//print test
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);//reload this scene
+    }
+
+    
 }

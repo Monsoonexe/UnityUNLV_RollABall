@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 
     public GameManager gameManager;
+    public bool acceptPlayerInput = true;
 
     public int pickupPointValue = 5;
     public float speed;
@@ -26,13 +27,15 @@ public class PlayerController : MonoBehaviour {
         canJump = true;
         canDash = true;
     }
-    // Update is called once per frame
-    void Update () {
+
+    private void HandleMovement()
+    {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         //Jump
         float jump;
-        if (Input.GetKeyDown(KeyCode.Space) & canJump == true){
+        if (Input.GetKeyDown(KeyCode.Space) & canJump == true)
+        {
             jump = jumpHeight;
             canJump = false;
         }
@@ -53,8 +56,16 @@ public class PlayerController : MonoBehaviour {
             dash = 1;
         }
         //end dash
-        Vector3 movement = new Vector3(horizontal*dash, jump, vertical*dash);
+        Vector3 movement = new Vector3(horizontal * dash, jump, vertical * dash);
         rb.AddForce(movement * speed);
+
+    }
+    // Update is called once per frame
+    void Update () {
+        if (acceptPlayerInput)
+        {
+            HandleMovement();
+        }
 	}
     private void FixedUpdate()
     {
