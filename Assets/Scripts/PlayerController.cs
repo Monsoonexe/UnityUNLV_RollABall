@@ -1,50 +1,89 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    private Rigidbody rigidBody;
-    private Collider col;
-    public int speed;
-    public int pickupPointValue = 5;
+
     public GameManager gameManager;
 
-   
+    public int pickupPointValue = 5;
+    public float speed;
+    public float jumpHeight;
+    public float pubBoost;
 
-    private void Start()
+    private Rigidbody rb;
+    private float dash;
+    private bool canJump;
+    private bool canDash;
+    
+	// Use this for initialization
+    void Start()
     {
-        if(gameManager == null) gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        rigidBody = gameObject.GetComponent<Rigidbody>();
-        col = gameObject.GetComponent<Collider>();
+        if (gameManager == null) gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        rb = GetComponent<Rigidbody>();
+        canJump = true;
+        canDash = true;
     }
-
     // Update is called once per frame
     void Update () {
-       
-	}
-
-    //called before physics step
-    private void FixedUpdate()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
-        rigidBody.AddForce(movement * speed);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Pickup"))
-        {
-
-            gameManager.AddPoints(pickupPointValue);
-            Destroy(collision.gameObject);
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        //Jump
+        float jump;
+        if (Input.GetKeyDown(KeyCode.Space) & canJump == true){
+            jump = jumpHeight;
+            canJump = false;
         }
         else
         {
-            return;
+            jump = 0f;
         }
+        //end jump
+        //dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) & canDash == true)
+        {
+            StartCoroutine(wait());
+            dash = pubBoost;
+            canDash = false;
+        }
+        else
+        {
+            dash = 1;
+        }
+        //end dash
+        Vector3 movement = new Vector3(horizontal*dash, jump, vertical*dash);
+        rb.AddForce(movement * speed);
+	}
+    private void FixedUpdate()
+    {
+        
+    }
+    void OnTriggerEnter(Collider hitObject)
+    {
+        //checking for map hits to reset jump
+        if (hitObject.gameObject.CompareTag("Map"))
+        {
+            canJump = true;
+        }
+        if (hitObject.gameObject.CompareTag("Pickup"))
+        {
+            gameManager.AddPoints(pickupPointValue);
+            hitObject.gameObject.SetActive(false);
+        }
+        if (hitObject.gameObject.CompareTag("Death Zone"))
+        {
+            //TODO
+            gameManager.OnPlayerDeath();
+            gameObject.SetActive(false);
+        }
+    }
+
+    //Dash delay
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(3);
+        canDash = true;
     }
 }

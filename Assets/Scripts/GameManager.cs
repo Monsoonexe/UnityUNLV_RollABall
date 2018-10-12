@@ -55,6 +55,12 @@ public class GameManager : MonoBehaviour {
         UpdateScoreText();
     }
 
+    public void OnPlayerDeath()
+    {
+        //TODO tell GM how death occured or fail event
+
+    }
+
     public void UpdateScoreText()
     {
         scoreText.text = "Score: " + scoreCount.ToString();
