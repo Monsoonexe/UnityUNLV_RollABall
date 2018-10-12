@@ -9,6 +9,7 @@ TagManager:
   - Map
   - Death Zone
   - GameManager
+  - Buddy
   layers:
   - Default
   - TransparentFX
