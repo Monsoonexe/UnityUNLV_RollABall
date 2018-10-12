@@ -12,14 +12,14 @@ public class GameManager : MonoBehaviour {
 
     public Text scoreText;
     public Text winText;
-    public string winString = "Congradulations!";
+    public string winString = "Congratulations!";
     public string loseString = "You lost! Try again!";
 
     public int secondsDelayUntilNextLevelLoads = 3;
 
     // Use this for initialization
     void Start () {
-
+        //check for references in case developers did not set them by hand in scene
         if(playerController == null)
         {
             Debug.Log("PlayerController reference not set. Searching scene....");//
@@ -36,19 +36,22 @@ public class GameManager : MonoBehaviour {
             winText = GameObject.FindGameObjectWithTag("WinText").GetComponent<Text>();
         }
 
+        //get a list of all the collectiables in the scene to keep track of them
         pickUpList = GameObject.FindGameObjectsWithTag("Pickup");
+        //this text should be blank until we hve something to say
         winText.text = "";
+        //good to get player input now
         playerController.acceptPlayerInput = true;
         
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateScoreText();
+        UpdateScoreText();//match GUI element with internal data
 
-        if (CheckWinCondition())
+        if (CheckWinCondition())//have we won yet?
         {
-            PlayerVictory();
+            PlayerVictory();//do the things that happen at victory time
         }
         
     }
@@ -67,24 +70,28 @@ public class GameManager : MonoBehaviour {
 
     private void PlayerVictory()
     {
-        winText.text = winString;
-        playerController.acceptPlayerInput = false;
-        StartCoroutine(LoadNextLevel());
+        //TODO
+        //play victory music
+        //go on to next level, not reload
+        //option to quit and go back to main menu
+        winText.text = winString;//show victory text to player
+        playerController.acceptPlayerInput = false; // stop getting input from player
+        StartCoroutine(LoadNextLevel());//load the next level (currently reloads single scene)
     }
 
     public void AddPoints(int pointsToAdd)
     {
         scoreCount += pointsToAdd;
-        UpdateScoreText();
+        UpdateScoreText();//Match GUI element to internal data
     }
 
     public void OnPlayerDeath()
     {
         //Debug.Log("The scene should be reloading now....");//print test
         //TODO tell GM how death occured or fail event
-        winText.text = loseString;
-        playerController.acceptPlayerInput = false;
-        StartCoroutine(LoadNextLevel());
+        winText.text = loseString;//show losing text to player
+        playerController.acceptPlayerInput = false;//stop looking for input from player to control ball
+        StartCoroutine(LoadNextLevel());//load next scene or reload this scene
     }
 
     public void UpdateScoreText()
@@ -95,7 +102,7 @@ public class GameManager : MonoBehaviour {
     private IEnumerator LoadNextLevel()
     {
         Debug.Log("The scene should be reloading now....");//print test
-        yield return new WaitForSeconds(secondsDelayUntilNextLevelLoads);
+        yield return new WaitForSeconds(secondsDelayUntilNextLevelLoads);//wait some time for the player to reflect on their actions
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);//reload this scene
     }
 
