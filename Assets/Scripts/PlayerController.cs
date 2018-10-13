@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody rb;
     private float dash;
-    private bool canJump;
+    public bool canJump;
     private bool canDash;
     
 	// Use this for initialization
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         //dash
         if (Input.GetKeyDown(KeyCode.LeftShift) & canDash == true)
         {
-            StartCoroutine(wait());
+            StartCoroutine(Wait());
             dash = pubBoost;
             canDash = false;
         }
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter(Collider hitObject)
     {
         //checking for map hits to reset jump
-        if (hitObject.gameObject.CompareTag("Map"))
+        if (hitObject.gameObject.CompareTag("Map") || hitObject.gameObject.CompareTag("Ground"))
         {
             canJump = true;
         }
@@ -92,9 +92,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     //Dash delay
-    IEnumerator wait()
+    IEnumerator Wait(int waitTime = 3)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(waitTime);
         canDash = true;
     }
 }

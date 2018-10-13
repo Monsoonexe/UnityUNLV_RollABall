@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour {
 
     //guaranteed to run after Update, before physics
 	void LateUpdate () {
+        transform.LookAt(followTarget.transform, Vector3.up);
         transform.position = followTarget.transform.position + offset;
 		
 	}
