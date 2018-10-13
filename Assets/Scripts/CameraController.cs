@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour {
 	}
 
     //guaranteed to run after Update, before physics
-	void FixedUpdate () {
+	void LateUpdate () {
         transform.position = followTarget.transform.position + offset;
 		
 	}
