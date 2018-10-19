@@ -13,6 +13,8 @@ TagManager:
   - LevelTimer
   - ScoreManager
   - WinText
+  - Ground
+  - Key
   layers:
   - Default
   - TransparentFX

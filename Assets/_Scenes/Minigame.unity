@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657934, g: 0.4964134, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657928, g: 0.4964131, b: 0.5748174, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -302,7 +302,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1847181379409762, guid: 534e4c23026c5524eb8dcb571d2b3730, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534e4c23026c5524eb8dcb571d2b3730, type: 2}
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084004c3233af2d4898c583771b259aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1863420909}
+  followTarget: {fileID: 0}
 --- !u!1 &530415928
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +599,9 @@ MonoBehaviour:
   scoreText: {fileID: 1944308569}
   winText: {fileID: 787891080}
   winString: Congradulations!
+  loseString: You lost! Try again!
+  secondsDelayUntilNextLevelLoads: 3
+  keyList: []
 --- !u!4 &640128709
 Transform:
   m_ObjectHideFlags: 0
@@ -1345,6 +1348,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1e31c3a9cf288ac438b3b0e819b0ccd9, type: 2}
+    - target: {fileID: 1847181379409762, guid: 32fdfc66d448af144b592f0931c6eff9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114441157578318006, guid: 32fdfc66d448af144b592f0931c6eff9, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 32fdfc66d448af144b592f0931c6eff9, type: 2}
@@ -1420,10 +1427,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 640128708}
+  acceptPlayerInput: 1
   pickupPointValue: 5
   speed: 10
   jumpHeight: 0
   pubBoost: 0
+  canJump: 0
 --- !u!4 &1892344570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4351728386760618, guid: 0e2e7a069f2b966498a1c6c3957ee833,

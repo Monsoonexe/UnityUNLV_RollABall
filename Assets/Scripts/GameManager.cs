@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 
     public int secondsDelayUntilNextLevelLoads = 3;
 
+    public List<Key> keyList = new List<Key>(); // arbitrary starting number of 20 keys
+
     // Use this for initialization
     void Start () {
         //check for references in case developers did not set them by hand in scene
@@ -77,6 +79,12 @@ public class GameManager : MonoBehaviour {
         winText.text = winString;//show victory text to player
         playerController.acceptPlayerInput = false; // stop getting input from player
         StartCoroutine(LoadNextLevel());//load the next level (currently reloads single scene)
+    }
+
+    public void AddKey(Key newKey)
+    {
+        keyList.Add(newKey);
+
     }
 
     public void AddPoints(int pointsToAdd)
