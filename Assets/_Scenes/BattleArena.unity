@@ -2006,6 +2006,11 @@ Prefab:
       propertyPath: jumpHeight
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 23293826248110874, guid: 32fdfc66d448af144b592f0931c6eff9,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be465cc800ac1544982b9dd947cf8c18, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32fdfc66d448af144b592f0931c6eff9, type: 2}
   m_IsPrefabAsset: 0
