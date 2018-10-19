@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 
     public int secondsDelayUntilNextLevelLoads = 3;
 
-    public List<GameObject> keyList = new List<GameObject>(); // arbitrary starting number of 20 keys
+    public List<Key> keyList = new List<Key>(); // arbitrary starting number of 20 keys
 
     // Use this for initialization
     void Start () {
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(LoadNextLevel());//load the next level (currently reloads single scene)
     }
 
-    public void AddKey(GameObject newKey)
+    public void AddKey(Key newKey)
     {
         keyList.Add(newKey);
 
