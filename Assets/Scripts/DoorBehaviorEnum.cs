@@ -4,8 +4,7 @@ using UnityEngine;
 
 public enum DoorBehaviorEnum
 {
-    OPENHORIZONTALLY,
-    OPENVERTICALLY,
+    OPENTRANSLATION,
     OPENDISSOLVE
 
 }
